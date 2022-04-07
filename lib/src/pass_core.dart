@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 part 'pass_file_io.dart';
+
 part 'pass_parser.dart';
 
 /// Implementation of Apple Passkit.
@@ -25,8 +26,9 @@ class Pass {
   }
 
   /// Save pass file from [url] to internal memory, parse and return [PassFile]
-  Future<PassFile> saveFromUrl({required String url}) async {
-    return PassFileIO().saveFromUrl(url: url);
+  Future<PassFile> saveFromUrl(
+      {required String url, Map<String, dynamic>? headers}) async {
+    return PassFileIO().saveFromUrl(url: url, headers: headers);
   }
 
   /// Fetch preview of pass file from [url], parse and return [PassFile]
