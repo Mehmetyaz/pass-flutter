@@ -100,11 +100,13 @@ class PassFileIO {
   }
 
   // ignore: public_member_api_docs
-  Future<PassFile> saveFromUrl({required String url}) async {
+  Future<PassFile> saveFromUrl(
+      {required String url, Map<String, dynamic>? headers}) async {
     final passId = _generatePassId();
     final passFile = await _createPass(passId: passId);
     final passDir = Directory(path.withoutExtension(passFile.path));
-    final response = await Dio().download(url, passFile.path);
+    final response = await Dio()
+        .download(url, passFile.path, options: Options(headers: headers));
     if (response.statusCode == 200) {
       await _unpackPass(passPath: passFile.path);
       return PassParser(
